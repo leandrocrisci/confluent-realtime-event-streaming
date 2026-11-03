@@ -1,0 +1,21 @@
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Logs and generated data
+*.log
+/logs/
+/data/
+
+# Build outputs and dependencies
+/build/
+/dist/
+/target/
+/node_modules/
+__pycache__/
+*.py[cod]
+
+# Operating system files
+.DS_Store
+Thumbs.db
