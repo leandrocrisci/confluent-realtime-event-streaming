@@ -1,0 +1,41 @@
+{
+  "type": "record",
+  "name": "Transaction",
+  "namespace": "com.bootcamp.payments",
+  "fields": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "account_id",
+      "type": "int"
+    },
+    {
+      "name": "card_id",
+      "type": "int"
+    },
+    {
+      "name": "merchant_id",
+      "type": "int"
+    },
+    {
+      "name": "amount",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 15,
+        "scale": 2
+      }
+    },
+    {
+      "name": "transaction_date",
+      "type": "string"
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "default": "WEB"
+    }
+  ]
+}

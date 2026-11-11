@@ -1,0 +1,18 @@
+confluent kafka acl list --principal "User:sa-z3ndxk3"
+     Principal    | Permission | Operation | Resource Type |    Resource Name     | Pattern Type
+------------------+------------+-----------+---------------+----------------------+---------------
+  User:sa-z3ndxk3 | ALLOW      | CREATE    | TOPIC         | __debezium-heartbeat | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | CREATE    | TOPIC         | desafio              | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | DESCRIBE  | TOPIC         | __debezium-heartbeat | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | DESCRIBE  | TOPIC         | desafio              | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | DESCRIBE  | TOPIC         | topico               | LITERAL
+  User:sa-z3ndxk3 | ALLOW      | WRITE     | TOPIC         | __debezium-heartbeat | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | WRITE     | TOPIC         | desafio              | PREFIXED
+  User:sa-z3ndxk3 | ALLOW      | WRITE     | TOPIC         | topico               | LITERAL
+
+confluent kafka acl list --principal "User:sa-j80pjrm"
+     Principal    | Permission | Operation | Resource Type | Resource Name | Pattern Type
+------------------+------------+-----------+---------------+---------------+---------------
+  User:sa-j80pjrm | ALLOW      | DESCRIBE  | TOPIC         | desafio       | PREFIXED
+  User:sa-j80pjrm | ALLOW      | READ      | GROUP         | desafio       | PREFIXED
+  User:sa-j80pjrm | ALLOW      | READ      | TOPIC         | desafio       | PREFIXED

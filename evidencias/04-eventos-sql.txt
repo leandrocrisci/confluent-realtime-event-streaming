@@ -1,0 +1,4 @@
+Evento	Retorno	Observação
+INSERT	id = 61	Loja nova, a 61ª depois das 60 do seed
+UPDATE	id = 1, balance = 7419.45	O before deve trazer 7429.45, 10 a mais
+DELETE	id = 61	Apagou a mesma loja que o insert criou

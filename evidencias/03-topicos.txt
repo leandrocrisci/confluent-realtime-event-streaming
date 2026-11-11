@@ -1,0 +1,12 @@
+confluent kafka topic list
+                    Name                   | Internal | Replication Factor | Partition Count
+-------------------------------------------+----------+--------------------+------------------
+  __debezium-heartbeat-lcc-v7kqgqz.desafio | false    |                  3 |               1
+  desafio                                  | false    |                  3 |               3
+  desafio.public.accounts                  | false    |                  3 |               1
+  desafio.public.cards                     | false    |                  3 |               1
+  desafio.public.customers                 | false    |                  3 |               1
+  desafio.public.merchants                 | false    |                  3 |               1
+  desafio.public.transactions              | false    |                  3 |               1
+  desafio.teste                            | false    |                  3 |               1
+  teste                                    | false    |                  3 |               3

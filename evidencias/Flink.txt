@@ -1,0 +1,96 @@
+SELECT slot_name, active FROM pg_replication_slots;
+[{
+  "slot_name": "wal_proposer_slot",
+  "active": true
+}, {
+  "slot_name": "wal_retention_slot",
+  "active": false
+}, {
+  "slot_name": "desafio_slot",
+  "active": true
+}]
+
+SELECT pubname FROM pg_publication;
+
+[{
+  "pubname": "desafio_pub"
+}]
+
+SET 'sql.tables.scan.idle-timeout' = '5s';
+Statement successfully submitted.
+Finished statement execution. Statement phase: COMPLETED.
+Details: configuration updated successfully.
++------------------------------+-------+
+|             Key              | Value |
++------------------------------+-------+
+| sql.tables.scan.idle-timeout | 5s    |
++------------------------------+-------+
+
+
+
+CREATE TABLE `transactions_enriched` AS
+SELECT t.`id`, t.`card_id`, t.`account_id`, t.`merchant_id`,
+       t.`amount`, t.`status`,
+       a.`customer_id`, a.`status` AS account_status, a.`currency`
+FROM `desafio.public.transactions` AS t
+LEFT JOIN `accounts_pk` FOR SYSTEM_TIME AS OF t.`$rowtime` AS a
+  ON t.`account_id` = a.`id`
+WHERE t.`id` > 2000;
+Creating statement: cli-2026-11-07-163605-d2db0c9f-130c-427b-bcb7-a414618a1ef2
+Statement successfully submitted.
+Waiting for statement to be ready. Statement phase: PENDING.
+Statement phase is RUNNING.
+Listening for execution errors. Press Enter to detach.
+Detached from statement.
+Finished statement execution. Statement phase: RUNNING.
+
+
+
+INSERT INTO transactions (card_id, account_id, merchant_id, amount, status)
+VALUES (201, 201, 10, 120.00, 'APPROVED'),
+       (201, 201, 11, 85.50, 'APPROVED'),
+       (201, 201, 12, 230.00, 'APPROVED');
+
+Statement executed successfully
+
+
+INSERT INTO transactions (card_id, account_id, merchant_id, amount, status)
+VALUES (58, 58, 20, 99.90, 'APPROVED');
+Nov 7 2026 - 4:38pm
+Nov 7 2026 - 4:40pm
+Nov 7 2026 - 4:42pm
+
+Table mode (cli-2026-11-07-164237-c3a451f7-ea28-4ba3-b4a1-f527ff69fff3) 
+id   card_id account_id merchant_id amount status   customer_id account_status currency                   
+2001 201     201        10          120.00 APPROVED 1           ACTIVE         BRL                        
+2002 201     201        11          85.50  APPROVED 1           ACTIVE         BRL                        
+2003 201     201        12          230.00 APPROVED 1           ACTIVE         BRL                        
+2006 58      58         20          99.90  APPROVED 58          BLOCKED        BRL                        
+2004 58      58         20          99.90  APPROVED 58          BLOCKED        BRL                        
+2007 58      58         20          99.90  APPROVED 58          BLOCKED        BRL                        
+2005 58      58         20          99.90  APPROVED 58          BLOCKED        BRL   
+
+
+SELECT * FROM `desafio.fraud.detected`;
+Table mode (cli-2026-11-07-164849-220b866d-d872-44a8-8e56-76ffe853cb35)
+card_id primeira_tx ultima_tx total  account_status currency regra                                        
+201     2001        2003      435.50 ACTIVE         BRL      RULE_VELOCITY   
+
+
+SELECT id, card_id, amount, `$rowtime` AS chegada
+FROM `transactions_enriched`
+WHERE card_id IN (201, 58)
+ORDER BY `$rowtime`, card_id;
+
+Table mode (cli-2026-11-07-165236-af974750-8b46-4c1f-83e6-54198e8f7f20) 
+id   card_id amount chegada                                   
+2001 201     120.00 2026-11-07 16:37:07.845       
+2002 201     85.50  2026-11-07 16:37:07.846       
+2003 201     230.00 2026-11-07 16:37:07.846       
+2004 58      99.90  2026-11-07 16:38:48.521       
+2005 58      99.90  2026-11-07 16:40:09.273       
+2006 58      99.90  2026-11-07 16:41:09.710       
+2007 58      99.90  2026-11-07 16:42:11.250       
+                                                  
+
+

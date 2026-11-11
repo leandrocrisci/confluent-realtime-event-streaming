@@ -1,0 +1,4 @@
+confluent connect cluster list
+      ID      |    Name     | Status  |  Type  | Trace
+--------------+-------------+---------+--------+--------
+  lcc-w7knmvm | desafio-cdc | RUNNING | source |

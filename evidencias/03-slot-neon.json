@@ -1,0 +1,13 @@
+[{
+  "slot_name": "wal_proposer_slot",
+  "plugin": null,
+  "active": true
+}, {
+  "slot_name": "wal_retention_slot",
+  "plugin": null,
+  "active": false
+}, {
+  "slot_name": "desafio_slot",
+  "plugin": "pgoutput",
+  "active": true
+}]

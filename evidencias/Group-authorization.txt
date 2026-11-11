@@ -1,0 +1,10 @@
+Group authorization failed e o consumer só lê grupos com prefixo desafio, e que, por isso, o comando precisou de --group desafio-cli. Isso mostra o menor privilégio funcionando na prática, e não só configurado.
+
+confluent kafka topic consume desafio.public.merchants --from-beginning \
+  --group desafio-cli \
+  --value-format avro \
+  --api-key <chave-consumer> --api-secret <secret-consumer> \
+  | tee evidencias/01-envelopes-cdc.json
+
+Starting Kafka Consumer. Use Ctrl-C to exit.
+% Error: Broker: Group authorization failed: FindCoordinator response error: Group authorization failed.
